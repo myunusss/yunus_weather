@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
 import Digit from './Digit/Digit';
 import Weather from './Weather/Weather';
 import { CustomBottomBar } from '../Components';

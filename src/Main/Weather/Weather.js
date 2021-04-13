@@ -44,8 +44,8 @@ class Weather extends Component {
       locationStatus: '',
       hourlyData: [],
 
-      tableHead: ['Date', 'Clouds', 'Humidity', 'Wind Speed', 'Temp'],
-      widthArr: [120, 60, 60, 70, 60],
+      tableHead: ['Date', 'Clouds', 'Humidity', 'Wind Speed', 'Temp', 'Weather'],
+      widthArr: [120, 60, 60, 70, 60, 120],
       tableData: []
     }
   }
@@ -76,7 +76,6 @@ class Weather extends Component {
 
           Promise.all([this.props.getWeatherOneCallData(params), this.props.getCurrentWeatherData(params)])
           .then(([oneCallDataResponse, currentWeatherResponse]) => {
-            console.log('ONE', oneCallDataResponse)
             let daily = oneCallDataResponse.daily;
             let dataArr = [];
             for (let index = 0; index < daily.length; index++) {
@@ -86,6 +85,7 @@ class Weather extends Component {
               newArr.push(Math.round(daily[index].humidity * 10) / 10)
               newArr.push(Math.round(daily[index].wind_speed * 10) / 10)
               newArr.push(Math.round(daily[index].temp.day * 10) / 10)
+              newArr.push(daily[index].weather[0].description)
               dataArr.push(newArr)
             }
 
@@ -155,16 +155,16 @@ class Weather extends Component {
               
               <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <Parameter
-                  value={Math.round(_.get(this.props,'weather.main.temp') * 10) / 10 }
+                  value={Math.round(_.get(this.props,'hourlyWeather.current.temp') * 10) / 10 }
                   unit={`\u00b0C`}
                   title={'Temperature'}
                 />
                 <Image
                   style={{width: 100, height: 100, resizeMode: 'contain', flex: 1}}
-                  source={{uri: `${apiConfig.baseImageUrl}${_.get(this.props,'weather.weather[0].icon')}@2x.png`}}/>
+                  source={{uri: `${apiConfig.baseImageUrl}${_.get(this.props,'hourlyWeather.current.weather[0].icon')}@2x.png`}}/>
 
                 <Text style={{fontSize: 15, color: '#000', fontWeight:'bold', textAlign: 'center', flex: 1, textTransform: 'capitalize'}}>
-                  {_.get(this.props,'weather.weather[0].description')}
+                  {_.get(this.props,'hourlyWeather.current.weather[0].description')}
                 </Text>
               </View>
 
@@ -172,17 +172,17 @@ class Weather extends Component {
 
               <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 13}}>
                 <Parameter
-                  value={Math.round(_.get(this.props,'weather.wind.speed') * 10) / 10 }
+                  value={Math.round(_.get(this.props,'hourlyWeather.current.wind_speed') * 10) / 10 }
                   unit={'m/sec'}
                   title={'Wind Speed'}
                 />
                 <Parameter
-                  value={Math.round(_.get(this.props,'weather.clouds.all') * 10) / 10 }
+                  value={Math.round(_.get(this.props,'hourlyWeather.current.clouds') * 10) / 10 }
                   unit={'%'}
                   title={'Clouds'}
                 />
                 <Parameter
-                  value={Math.round(_.get(this.props,'weather.main.humidity') * 10) / 10 }
+                  value={Math.round(_.get(this.props,'hourlyWeather.current.humidity') * 10) / 10 }
                   unit={'%'}
                   title={'Humidity'}
                 />
@@ -209,19 +209,19 @@ class Weather extends Component {
               }
               <View style={styles.infoContainer}>
                 <View style={styles.infoTextContainer}>
-                  <View style={[styles.indicator, {backgroundColor: 'rgba(50,100,200,0.8)'}]}/>
+                  <View style={[styles.indicator, {backgroundColor: '#126e82'}]}/>
                   <Text style={{fontSize: 11, color: '#fff'}}>
                     {'Temperature (\u00b0C)'}
                   </Text>
                 </View>
                 <View style={styles.infoTextContainer}>
-                  <View style={[styles.indicator, {backgroundColor: 'rgba(50,100,200,0.5)'}]}/>
+                  <View style={[styles.indicator, {backgroundColor: '#51c4d3'}]}/>
                   <Text style={{fontSize: 11, color: '#fff'}}>
                     {('Humidity (%)')}
                   </Text>
                 </View>
                 <View style={styles.infoTextContainer}>
-                  <View style={[styles.indicator, {backgroundColor: 'rgba(50,100,200,0.3)'}]}/>
+                  <View style={[styles.indicator, {backgroundColor: '#d8e3e7'}]}/>
                   <Text style={{fontSize: 11, color: '#fff'}}>
                     {('Clouds (%)')}
                   </Text>

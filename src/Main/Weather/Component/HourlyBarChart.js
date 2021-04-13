@@ -7,7 +7,7 @@ let moment = require('moment');
 
 const HourlyBarChart = (props) => {
   const keys = ['temp', 'humidity', 'clouds']
-  const colors = ['rgba(50,100,200,0.8)', 'rgba(50,100,200,0.5)', 'rgba(50,100,200,0.3)']
+  const colors = ['#126e82', '#51c4d3', '#d8e3e7']
   const CUT_OFF = 10
   const TempLabels = ({ x, y, bandwidth, data }) => (
     props.data.map((item, index) => (
@@ -48,7 +48,7 @@ const HourlyBarChart = (props) => {
         x={ x(index) + (bandwidth / 2) }
         y={ item.humidity+item.temp+item.clouds < CUT_OFF ? y(item.humidity+item.temp+item.clouds) - 5 : y(item.humidity+item.temp+item.clouds) + 15 }
         fontSize={11}
-        fill={'#fff'}
+        fill={'#000'}
         alignmentBaseline={ 'middle' }
         textAnchor={ 'middle' }
       >

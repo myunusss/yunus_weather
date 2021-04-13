@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   container: {
     elevation: 1,
     height: 50,
-    backgroundColor: 'rgba(50,100,200,1)',
+    backgroundColor: 'rgba(20, 140, 251, 0.5)',
     alignItems: 'center',
     borderRadius: 30,
     width: '95%',
