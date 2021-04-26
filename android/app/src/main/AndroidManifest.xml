@@ -7,8 +7,8 @@
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
-      android:icon="@mipmap/logo"
-      android:roundIcon="@mipmap/logo"
+      android:icon="@mipmap/Leholeh"
+      android:roundIcon="@mipmap/Leholeh"
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="true">
